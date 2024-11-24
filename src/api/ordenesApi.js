@@ -1,7 +1,7 @@
 import axios from './axiosConfig';
 
 
-const url = "https://manifest-emblem-437615-g9.rj.r.appspot.com/ordenes";
+const url = "http://localhost:8080/ordenes";
 
 // Obtener todas las órdenes
 export const getOrdenes = () => {

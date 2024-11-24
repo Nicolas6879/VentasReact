@@ -1,15 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { getCarritos } from '../api/carritoApi';
+import { getProducts } from '../api/productsApi'; // Cambiado a productsApi
 import ProductItem from '../components/ProductItem';
 
 function Product() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    getCarritos().then(response => {
-      setProducts(response.data);
-    });
+    getProducts()
+      .then(response => {
+        console.log(response.data); // Verifica los datos obtenidos
+        setProducts(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setLoading(false);
+      });
   }, []);
+
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
+
+  if (error) {
+    return <div>Error al cargar los productos: {error.message}</div>;
+  }
 
   return (
     <section className="bg0 p-t-23 p-b-140">

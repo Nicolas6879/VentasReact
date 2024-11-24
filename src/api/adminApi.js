@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios from './axiosConfig';
 
-const url="https://manifest-emblem-437615-g9.rj.r.appspot.com/admin";
+
+const url="http://localhost:8080/admin";
 
 
 export const getAdmins = () => {

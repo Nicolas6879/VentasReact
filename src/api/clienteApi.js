@@ -1,7 +1,7 @@
 import axios from './axiosConfig';
 
 
-const url = "https://manifest-emblem-437615-g9.rj.r.appspot.com/clientes";
+const url = "http://localhost:8080/clientes";
 
 // Obtener todos los clientes
 export const getClientes = () => {

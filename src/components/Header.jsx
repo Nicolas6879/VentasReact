@@ -26,17 +26,9 @@ function Header({ onSearchClick }) {
             </a>
             <div className="menu-desktop">
               <ul className="main-menu">
-                <li className="active-menu">
-                  <Link to="/">Home</Link>
-                  <ul className="sub-menu">
-                    <li><Link to="/">inicio</Link></li>
-                    <li><Link to="/home-02">inicio 2</Link></li>
-                    <li><Link to="/home-03">inicio 3</Link></li>
-                  </ul>
-                </li>
-                <li><Link to="/product">Tienda</Link></li>
-                <li className="label1" data-label1="hot"><Link to="/cart">Carrito</Link></li>
-                <li><Link to="/blog">Blog</Link></li>
+                <li className="active-menu"><Link to="/">Home</Link></li>
+                <li className="label1" data-label1="hot"><Link to="/product">Tienda</Link></li>
+                <li ><Link to="/cart">Carrito</Link></li>
                 <li><Link to="/about">Nosotros</Link></li>
                 <li><Link to="/contact">Contacto</Link></li>
               </ul>

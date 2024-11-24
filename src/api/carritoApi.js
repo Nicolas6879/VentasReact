@@ -1,7 +1,7 @@
 import axios from './axiosConfig';
 
 
-const url = "https://manifest-emblem-437615-g9.rj.r.appspot.com/carritos";
+const url = "http://localhost:8080/carritos";
 
 // Obtener todos los carritos
 export const getCarritos = () => {
