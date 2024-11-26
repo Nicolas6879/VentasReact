@@ -1,27 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import { getCarritos } from '../api/carritoApi';
+import { getItemsByCarritoId } from '../api/itemApi';
 
 function Cart() {
-  const [carritos, setCarritos] = useState([]);
+  const [items, setItems] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    getCarritos().then(response => {
-      setCarritos(response.data);
+    getItemsByCarritoId(1).then(response => {
+      setItems(response.data);
+    }).catch(error => {
+      console.error('Error fetching items:', error);
+      setError('Error fetching items');
     });
   }, []);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (items.length === 0) {
+    return <div>Cargando...</div>;
+  }
 
   return (
     <div className="container">
       <h1>Carrito</h1>
       <ul>
-        {carritos.map(carrito => (
-          <li key={carrito.id}>
-            {carrito.name} - {carrito.quantity} x ${carrito.price}
+        {items.map(item => (
+          <li key={item.id}>
+            {item.producto.nombre} - {item.unidades} x ${item.producto.precio}
           </li>
         ))}
       </ul>
       <div>
-        Total: ${carritos.reduce((total, carrito) => total + carrito.price * carrito.quantity, 0)}
+        Total: ${items.reduce((total, item) => total + item.producto.precio * item.unidades, 0)}
       </div>
     </div>
   );

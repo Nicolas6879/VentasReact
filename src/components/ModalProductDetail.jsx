@@ -5,6 +5,8 @@ import productDetail3 from '../assets/images/product-detail-03.jpg';
 
 function ModalProductDetail({ product, onClose }) {
   const [quantity, setQuantity] = useState(1);
+  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedSize, setSelectedSize] = useState('');
 
   const handleQuantityChange = (e) => {
     setQuantity(e.target.value);
@@ -68,7 +70,7 @@ function ModalProductDetail({ product, onClose }) {
                     <div className="size-203 flex-c-m respon6">Size</div>
                     <div className="size-204 respon6-next">
                       <div className="rs1-select2 bor8 bg0">
-                        <select className="js-select2" name="time">
+                        <select className="js-select2" name="time" value={selectedSize} onChange={e => setSelectedSize(e.target.value)}>
                           <option>Choose an option</option>
                           <option>Size S</option>
                           <option>Size M</option>
@@ -83,7 +85,7 @@ function ModalProductDetail({ product, onClose }) {
                     <div className="size-203 flex-c-m respon6">Color</div>
                     <div className="size-204 respon6-next">
                       <div className="rs1-select2 bor8 bg0">
-                        <select className="js-select2" name="time">
+                        <select className="js-select2" name="time" value={selectedColor} onChange={e => setSelectedColor(e.target.value)}>
                           <option>Choose an option</option>
                           <option>Red</option>
                           <option>Blue</option>

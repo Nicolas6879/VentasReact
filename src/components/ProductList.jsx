@@ -6,6 +6,7 @@ function ProductList() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     getProducts()
@@ -19,6 +20,10 @@ function ProductList() {
         setLoading(false);
       });
   }, []);
+
+  const filteredProducts = products.filter(product =>
+    product.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   if (loading) {
     return <div>Cargando...</div>;
@@ -34,8 +39,16 @@ function ProductList() {
         <div className="p-b-10">
           <h3 className="ltext-103 cl5">Descripcion de productos</h3>
         </div>
+        <div className="p-b-10">
+          <input
+            type="text"
+            placeholder="Buscar productos..."
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+          />
+        </div>
         <div className="row isotope-grid">
-          {products.map(product => (
+          {filteredProducts.map(product => (
             <ProductItem key={product.id} product={product} />
           ))}
         </div>

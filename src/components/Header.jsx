@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/icons/logo-01.png';
+import 'material-design-iconic-font/dist/css/material-design-iconic-font.min.css'; // Importa los estilos de los iconos
+import CartPopup from './CarPopup'; // Ajusta la ruta según la ubicación correcta
+import '../assets/css/Header.css'; // Importa el archivo CSS para los estilos del header
+function Header({ onSearchClick, onCartClick }) {
+  const [isCartPopupVisible, setIsCartPopupVisible] = useState(false);
+  const timerRef = useRef(null);
 
-function Header({ onSearchClick }) {
+  const handleCartMouseEnter = () => {
+    clearTimeout(timerRef.current);
+    setIsCartPopupVisible(true);
+  };
+
+  const handleCartMouseLeave = () => {
+    timerRef.current = setTimeout(() => {
+      setIsCartPopupVisible(false);
+    }, 2000); // 2 segundos
+  };
+
   return (
     <header>
       <div className="container-menu-desktop">
@@ -28,21 +44,24 @@ function Header({ onSearchClick }) {
               <ul className="main-menu">
                 <li className="active-menu"><Link to="/">Home</Link></li>
                 <li className="label1" data-label1="hot"><Link to="/product">Tienda</Link></li>
-                <li ><Link to="/cart">Carrito</Link></li>
-                <li><Link to="/about">Nosotros</Link></li>
+                <li><Link to="/cart">Carrito</Link></li>
                 <li><Link to="/contact">Contacto</Link></li>
               </ul>
             </div>
             <div className="wrap-icon-header flex-w flex-r-m">
-              <div className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search" onClick={onSearchClick}>
-                <i className="zmdi zmdi-search"></i>
-              </div>
-              <div className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
+              <div 
+                className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" 
+                data-notify="2" 
+                onMouseEnter={handleCartMouseEnter} 
+                onMouseLeave={handleCartMouseLeave}
+              >
                 <i className="zmdi zmdi-shopping-cart"></i>
+                {isCartPopupVisible && (
+                  <div onMouseEnter={handleCartMouseEnter} onMouseLeave={handleCartMouseLeave}>
+                    <CartPopup />
+                  </div>
+                )}
               </div>
-              <a href="#" className="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
-                <i className="zmdi zmdi-favorite-outline"></i>
-              </a>
             </div>
           </nav>
         </div>
